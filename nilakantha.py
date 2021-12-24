@@ -22,7 +22,6 @@ def main(sum):
         # print
         print(sum)
 
-# Get loop count
 if len(sys.argv) != 1:
     print("Usage: python3 nilakantha.py")
 else:
