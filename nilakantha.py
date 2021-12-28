@@ -3,11 +3,11 @@ from decimal import *
 from time import sleep
 from os.path import exists
 
-def main(sum, i):
+def main(sum, i, add):
     # Alternate between adding and subtracting
-    ADDING = True
+    ADDING = add
     # For the multiplication part of the series
-    MULTIPLY = 2 + i
+    MULTIPLY = Decimal(2 * (i+1))
 
     while True:
         # Sick calculations bro
@@ -16,35 +16,37 @@ def main(sum, i):
             sum = sum + quotient
         else:
             sum = sum - quotient
-    
+
+        # keep track of the iterations
+        i = i + 1
         # Change the variables
         MULTIPLY = MULTIPLY + 2
         ADDING = not ADDING
 
         # Write to file
-        f = open("pi.txt", "w")
-        f.write(str(sum) + "?" + str(i))
-        f.close()
+        if i % 100 == 0:
+            f = open("pi.txt", "w")
+            f.write(str(sum) + "?" + str(i) + "?" + str(ADDING))
+            f.close()
+            sleep(0.001)
 
         # print
         print(sum)
-
-        # keep track of the iterations
-        i = i + 1
-        sleep(0.001)
 
 getcontext().prec = 100
 
 # Get last sum and it's term number (if it exists)
 startSum = Decimal(3)
 startI = 0
+startAdd = True
 if exists("pi.txt"):
     f = open("pi.txt", "r")
     save = f.read()
-    saveData = save.split('?', 1)
-    startSum = Decimal(float(saveData[0]))
+    saveData = save.split('?', 2)
+    startSum = Decimal(saveData[0])
     startI = int(saveData[1])
+    startAdd = saveData[2] == "True"
     f.close()
 
 # Start the series
-main(startSum, startI)
+main(startSum, startI, startAdd)
