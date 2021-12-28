@@ -31,7 +31,7 @@ def main(sum, i):
 
         # keep track of the iterations
         i = i + 1
-        sleep(0.01)
+        sleep(0.001)
 
 getcontext().prec = 100
 
