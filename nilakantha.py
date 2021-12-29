@@ -24,11 +24,11 @@ def main(sum, i, add):
         ADDING = not ADDING
 
         # Write to file
-        if i % 100 == 0:
+        if i % 1000 == 0:
             f = open("pi.txt", "w")
             f.write(str(sum) + "?" + str(i) + "?" + str(ADDING))
             f.close()
-            sleep(0.001)
+            sleep(0.05)
 
         # print
         print(sum)
